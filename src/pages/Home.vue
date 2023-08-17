@@ -1,8 +1,9 @@
 <script setup>
-import { ref, watchEffect } from 'vue'
+import { ref, watchEffect, computed } from 'vue'
 import CountryCard from '../components/CountryCard.vue'
 import { useQuery } from '@vue/apollo-composable'
 import gql from 'graphql-tag'
+
 
 const { result, loading, error } = useQuery(gql`
     query {
@@ -41,7 +42,7 @@ watchEffect(() => {
         <header class="pb-14">
             <div
                 class="max-w-2xl flex justify-between items-center py-2 px-4 bg-white rounded-full shadow-2xl border-b-2 border-primary mx-auto">
-                <div class="flex flex-col px-2">
+                <div class="flex flex-col px-2 w-2/5">
                     <span class="text-lg text-primary">País</span>
                     <input v-model="search" type="text" placeholder="Escriba el país que desea ver"
                         class="outline-none focus:border-b-2 focus:border-tertiary" />
@@ -59,12 +60,16 @@ watchEffect(() => {
             <div v-if="loading">
                 <h1 class="text-primary text-lg">Cargando...</h1>
             </div>
+
             <section v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <CountryCard v-for="(country, index) in filteredCountries.slice(0, 9)" :key="index" :country="country" />
+                <CountryCard v-for="(country, index) in filteredCountries" :key="index" :country="country" />
             </section>
             <div v-if="error">
                 <h1 class="text-primary text-lg">Error: {{ error }}</h1>
             </div>
+            <section>
+                <router-view></router-view>
+            </section>
         </main>
     </div>
 </template>
