@@ -37,7 +37,7 @@ watchEffect(() => {
 
 <template>
     <div class="h-full">
-        <header class="pb-8">
+        <header class="pb-14">
             <div
                 class="max-w-2xl flex justify-between items-center py-2 px-4 bg-white rounded-full shadow-2xl border-b-2 border-primary mx-auto">
                 <div class="flex flex-col px-2">
