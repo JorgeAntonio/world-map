@@ -3,7 +3,7 @@
 </script>
 
 <template>
-    <div>
+    <div class="max-w-full h-screen">
         <h1 class="text-primary text-xl font-semibold">Hola! esta es la vista 2</h1>
     </div>
 </template>

@@ -5,7 +5,7 @@ import "./style.css";
 
 //apollo
 import { ApolloClient, HttpLink, InMemoryCache } from "@apollo/client/core";
-import { createApolloProvider } from "@vue/apollo-option";
+import { DefaultApolloClient } from "@vue/apollo-composable";
 
 const httpLink = new HttpLink({
   uri: "https://countries.trevorblades.com/",
@@ -18,12 +18,8 @@ const apolloClient = new ApolloClient({
   cache,
 });
 
-const apolloProvider = createApolloProvider({
-  defaultClient: apolloClient,
-});
-
 const app = createApp(App);
 
-app.provide(apolloProvider);
+app.provide(DefaultApolloClient, apolloClient);
 app.use(router);
 app.mount("#app");

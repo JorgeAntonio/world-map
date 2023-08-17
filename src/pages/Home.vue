@@ -1,14 +1,47 @@
 <script setup>
-import ItemCard from '../components/ItemCard.vue'
+import { ref, watchEffect, computed } from 'vue'
+import CountryCard from '../components/CountryCard.vue'
+import { useQuery } from '@vue/apollo-composable'
+import gql from 'graphql-tag'
+
+const { result, loading, error } = useQuery(gql`
+    query {
+        countries {
+            name
+            continent {
+                name
+            }
+        }
+    }
+`)
+
+const countries = ref([])
+
+watchEffect(() => {
+    if (result.value) {
+        countries.value = result.value.countries
+    }
+})
+
+const search = ref('')
+
+const filteredCountries = ref([])
+
+watchEffect(() => {
+    filteredCountries.value = countries.value.filter(country => {
+        return country.name.toLowerCase().includes(search.value.toLowerCase())
+    })
+})
+
 </script>
 
 <template>
-    <div>
+    <div class="h-full">
         <header class="pb-8">
             <div
                 class="max-w-2xl flex justify-between items-center py-2 px-4 bg-white rounded-full shadow-2xl border-b-2 border-primary mx-auto">
                 <div class="flex flex-col px-2">
-                    <input type="text" placeholder="País" class="outline-none" />
+                    <input v-model="search" type="text" placeholder="País" class="outline-none" />
                     <span class="text-sm text-primary opacity-50">Escriba el país que desea ver</span>
                 </div>
                 <div class="flex bg-tertiary text-white rounded-full px-2 py-1">
@@ -20,16 +53,16 @@ import ItemCard from '../components/ItemCard.vue'
                 </div>
             </div>
         </header>
-        <main class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <ItemCard />
-            <ItemCard />
-            <ItemCard />
-            <ItemCard />
-            <ItemCard />
-            <ItemCard />
-            <ItemCard />
-            <ItemCard />
-            <ItemCard />
+        <main>
+            <div v-if="loading">
+                <h1 class="text-primary text-lg">Cargando...</h1>
+            </div>
+            <section v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <CountryCard v-for="(country, index) in filteredCountries.slice(0, 9)" :key="index" :country="country" />
+            </section>
+            <div v-if="error">
+                <h1 class="text-primary text-lg">Error: {{ error }}</h1>
+            </div>
         </main>
     </div>
 </template>
