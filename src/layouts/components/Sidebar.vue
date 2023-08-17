@@ -11,7 +11,7 @@ const isActiveTextColor = (path) => isActive(path) ? 'text-bg-primary' : 'text-w
 </script>
 
 <template>
-    <aside class="hidden md:w-64 md:flex flex-col gap-4 bg-primary p-8">
+    <aside class="hidden md:w-64 md:flex flex-col gap-4 bg-primary p-8 fixed h-screen">
         <div class="flex items-center justify-center bg-secondary p-4 rounded-md">
             <router-link to="/">
                 <h3 class="text-2xl text-[#676767] font-bold">Logo</h3>

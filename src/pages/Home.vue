@@ -41,8 +41,9 @@ watchEffect(() => {
             <div
                 class="max-w-2xl flex justify-between items-center py-2 px-4 bg-white rounded-full shadow-2xl border-b-2 border-primary mx-auto">
                 <div class="flex flex-col px-2">
-                    <input v-model="search" type="text" placeholder="País" class="outline-none" />
-                    <span class="text-sm text-primary opacity-50">Escriba el país que desea ver</span>
+                    <span class="text-lg text-primary">País</span>
+                    <input v-model="search" type="text" placeholder="Escriba el país que desea ver"
+                        class="outline-none focus:border-b-2 focus:border-tertiary" />
                 </div>
                 <div class="flex bg-tertiary text-white rounded-full px-2 py-1">
                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
