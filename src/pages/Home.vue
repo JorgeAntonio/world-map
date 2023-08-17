@@ -8,6 +8,7 @@ const { result, loading, error } = useQuery(gql`
     query {
         countries {
             name
+            capital
             continent {
                 name
             }
@@ -59,7 +60,7 @@ watchEffect(() => {
                 <h1 class="text-primary text-lg">Cargando...</h1>
             </div>
             <section v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <CountryCard v-for="(country, index) in filteredCountries" :key="index" :country="country" />
+                <CountryCard v-for="(country, index) in filteredCountries.slice(0, 9)" :key="index" :country="country" />
             </section>
             <div v-if="error">
                 <h1 class="text-primary text-lg">Error: {{ error }}</h1>
