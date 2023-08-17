@@ -13,7 +13,9 @@ const isActiveTextColor = (path) => isActive(path) ? 'text-bg-primary' : 'text-w
 <template>
     <aside class="hidden md:w-64 md:flex flex-col gap-4 bg-primary p-8">
         <div class="flex items-center justify-center bg-secondary p-4 rounded-md">
-            <h3 class="text-2xl text-[#676767] font-bold">Logo</h3>
+            <router-link to="/">
+                <h3 class="text-2xl text-[#676767] font-bold">Logo</h3>
+            </router-link>
         </div>
         <div class="flex flex-col text-primary">
             <ul>
